@@ -282,6 +282,10 @@ test_inductor() {
   CPP_TESTS_DIR="${BUILD_BIN_DIR}" LD_LIBRARY_PATH="${TORCH_LIB_DIR}" python test/run_test.py --cpp --verbose -i cpp/test_aot_inductor
 }
 
+test_multigpu() {
+  python test/run_test.py --include test_cuda_multigpu test_cuda_primary_ctx --verbose
+}
+
 # "Global" flags for inductor benchmarking controlled by TEST_CONFIG
 # For example 'dynamic_aot_eager_torchbench' TEST_CONFIG means we run
 # the benchmark script with '--dynamic-shapes --backend aot_eager --device cuda'
@@ -1014,6 +1018,8 @@ elif [[ "${TEST_CONFIG}" == *dynamo* && "${SHARD_NUMBER}" == 2 && $NUM_TEST_SHAR
   install_torchvision
   install_numpy_pytorch_interop
   test_dynamo_shard 2
+elif [[ "${TEST_CONFIG}" == *multigpu* ]]; then
+  test_multigpu
 elif [[ "${SHARD_NUMBER}" == 1 && $NUM_TEST_SHARDS -gt 1 ]]; then
   test_without_numpy
   install_torchvision
