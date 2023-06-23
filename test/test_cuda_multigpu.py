@@ -20,6 +20,7 @@ from torch.testing._internal.common_utils import (
     IS_JETSON,
     IS_REMOTE_GPU,
     IS_SANDCASTLE,
+    NoTest,
     TEST_CUDA,
     TestCase,
     get_cycles_per_ms,
